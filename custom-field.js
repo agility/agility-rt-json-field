@@ -13,7 +13,7 @@ var RTJsonField = function() {
         ///     <field name="readonly" type="boolean">Represents if this field should be readonly or not.</field>
         /// </param>
 
-        var url = 'https://musing-shirley-9ee1c0.netlify.app';
+        var url = 'https://joelvarty.github.io/agility-rt-json-field/index.html';
         var iframe = document.createElement('iframe');
         iframe.width = '100%';
         iframe.height = '500px';

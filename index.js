@@ -3,8 +3,21 @@ var app = new Vue({
     data: {
       value: null
     },
+	watch: {
+		value: function (val, oldVal) {
+			console.log("val changed", val, oldVal)
+			if (val !== oldVal) {
+				this.setNewValue(val)
+			}
+		  },
+	},
     methods: {
-
+		setNewValue(value) {
+            window.postMessage({
+                message: value,
+                type: 'setNewValueFromCustomField'
+            }, "*")
+        },
         listen() {
             var self = this;
 
