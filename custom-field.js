@@ -620,29 +620,34 @@ var RTJsonField = function() {
         ///     <field name="readonly" type="boolean">Represents if this field should be readonly or not.</field>
         /// </param>
 
-        var url = 'https://joelvarty.github.io/agility-rt-json-field/index.html';
-        var iframe = document.createElement('iframe');
-        iframe.width = '100%';
-        iframe.height = '500px';
-        iframe.src = url
-        iframe.onload = function() {
+		var $pnl = $(".rt-field", options.$elem);
 
-            iframe.contentWindow.postMessage({
-                message: ko.unwrap(options.fieldBinding),
-                type: 'setInitialValueForCustomField'
-            }, url)
-        }
-        options.$elem.html(iframe);
+		if ($pnl.size() == 0) {
 
-        window.addEventListener("message", function (e) {
+			var url = 'https://joelvarty.github.io/agility-rt-json-field/index.html';
+			var iframe = document.createElement('iframe');
+			iframe.className = "rt-field";
+			iframe.width = '100%';
+			iframe.height = '500px';
+			iframe.src = url
+			iframe.onload = function() {
 
-            if (e.data.type === 'setNewValueFromCustomField') {
-                options.fieldBinding(e.data.message);
-            }
+				iframe.contentWindow.postMessage({
+					message: ko.unwrap(options.fieldBinding),
+					type: 'setInitialValueForCustomField'
+				}, url)
+			}
+			options.$elem.html(iframe);
 
-        }, false);
+			window.addEventListener("message", function (e) {
 
+				if (e.data.type === 'setNewValueFromCustomField') {
+					options.fieldBinding(e.data.message);
+				}
 
+			}, false);
+
+		}
 
     }
 }

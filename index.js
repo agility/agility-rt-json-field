@@ -26,7 +26,9 @@ console.log("Got message", e.data)
                 //only care about these messages
                 if(e.data.type === 'setInitialValueForCustomField') {
 					console.log("GOT VALUE", e.data.message)
-					self.value = e.data.message
+					if (self.value !== e.data.message) {
+						self.value = e.data.message
+					}
 				}
             }, false);
         }
