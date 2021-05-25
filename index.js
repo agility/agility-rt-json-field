@@ -1,7 +1,7 @@
 var app = new Vue({
     el: '#app',
     data: {
-      value: null
+      value: "Initial Value"
     },
 	watch: {
 		value: function (val, oldVal) {
@@ -22,7 +22,7 @@ var app = new Vue({
             var self = this;
 
             window.addEventListener("message", function (e) {
-
+console.log("Got message", e.data)
                 //only care about these messages
                 if(e.data.type === 'setInitialValueForCustomField') {
 					console.log("GOT VALUE", e.data.message)
