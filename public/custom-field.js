@@ -1,3 +1,6 @@
+/* eslint-disable new-parens */
+/* eslint-disable eqeqeq */
+/* eslint-disable no-undef */
 
 
 var baseUrl = 'https://agility.github.io/CustomFields/';
@@ -121,7 +124,7 @@ var ColorPickerFormField = function () {
     self.ReferenceName = "ColorPicker";
 
     /// <field name="Render" type="Function">This function gets called each time the input form gets rendered or refreshed. Can be called mulitple times. If dynamically loading in HTML templates, be sure to only load once.</field>
-    self.Render = function (options) {a
+    self.Render = function (options) {
         /// <summary>Function called whenever the form container this Custom Field Type is rendered or refreshed.</summary>
         /// <param name="options" type="Object">
         ///     <field name="$elem" type="jQueryElem">The .field-row jQuery Dom Element.</field>
