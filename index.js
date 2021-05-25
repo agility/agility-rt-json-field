@@ -1,19 +1,19 @@
 var app = new Vue({
     el: '#app',
     data: {
-      value: "Initial Value"
+      value: ""
     },
 	watch: {
 		value: function (val, oldVal) {
 			console.log("val changed", val, oldVal)
 			if (val !== oldVal) {
-				this.setNewValue(val)
+				this.setNewValue(val.trim())
 			}
 		  },
 	},
     methods: {
 		setNewValue(value) {
-            window.postMessage({
+            window.parent.postMessage({
                 message: value,
                 type: 'setNewValueFromCustomField'
             }, "*")
