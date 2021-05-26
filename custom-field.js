@@ -627,7 +627,10 @@ var RTJsonField = function() {
 
 		if ($pnl.size() == 0) {
 
+
+
 			var url = 'https://joelvarty.github.io/agility-rt-json-field/index.html';
+			//USE FOR LOCAL TESTING var url = 'http://localhost:3000';
 			var iframe = document.createElement('iframe');
 			iframe.className = "rt-field";
 			iframe.width = '100%';
@@ -644,9 +647,21 @@ var RTJsonField = function() {
 
 			window.addEventListener("message", function (e) {
 
-				if (e.data.type === 'setNewValueFromCustomField') {
-					options.fieldBinding(e.data.message);
+				var messageType = e.data.type
+
+				switch (messageType) {
+					case 'setNewValueFromCustomField':
+						options.fieldBinding(e.data.message);
+						break;
+					case 'setHeightCustomField':
+						iframe.height = e.data.message + "px"
+						break;
+
+					default:
+						//do nothing...
+						console.log("not handled", e.data)
 				}
+
 
 			}, false);
 
