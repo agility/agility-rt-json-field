@@ -629,8 +629,8 @@ var RTJsonField = function() {
 
 
 
-			//HACK var url = 'https://joelvarty.github.io/agility-rt-json-field/index.html';
-			var url = 'http://localhost:3000';
+			var url = 'https://joelvarty.github.io/agility-rt-json-field/index.html';
+			//USE FOR LOCAL TESTING var url = 'http://localhost:3000';
 			var iframe = document.createElement('iframe');
 			iframe.className = "rt-field";
 			iframe.width = '100%';

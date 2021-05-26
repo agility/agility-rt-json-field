@@ -1,16 +1,26 @@
 
 import React, { useState, useEffect, useRef } from "react"
 import EditorJS from '@editorjs/editorjs'
-import Header from '@editorjs/header'
-import List from '@editorjs/list'
-import ImageTool from '@editorjs/image'
-import Quote from '@editorjs/quote'
-import Link from '@editorjs/link'
-import InlineCode from '@editorjs/inline-code'
+
+import agilityMgmt from "@agility/content-management";
+
+import Embed from '@editorjs/embed'
 import Table from '@editorjs/table'
+import Paragraph from '@editorjs/paragraph'
+import List from '@editorjs/list'
+import Warning from '@editorjs/warning'
+import Code from '@editorjs/code'
 
+import Image from '@editorjs/image'
+import Raw from '@editorjs/raw'
+import Header from '@editorjs/header'
+import Quote from '@editorjs/quote'
+import Marker from '@editorjs/marker'
+import CheckList from '@editorjs/checklist'
+import Delimiter from '@editorjs/delimiter'
+import InlineCode from '@editorjs/inline-code'
+import SimpleImage from '@editorjs/simple-image'
 
-import { isCompositeComponent } from "react-dom/test-utils";
 
 function App() {
 	const [value, setValue] = useState("")
@@ -47,7 +57,73 @@ function App() {
 		}
 	}
 
+
+
+
 	useEffect(() => {
+
+
+
+		const tools = {
+			embed: Embed,
+			table: Table,
+			paragraph: Paragraph,
+			list: List,
+			warning: Warning,
+			code: Code,
+			//linkTool: LinkTool,
+			image: {
+				class: Image,
+				config: {
+					/**
+					 * Custom uploader
+					 */
+					uploader: {
+						/**
+						 * Upload file to the server and return an uploaded image data
+						 * @param {File} file - file selected from the device or pasted by drag-n-drop
+						 * @return {Promise.<{success, file: {url}}>}
+						 */
+						uploadByFile: async (file) => {
+							// your own uploading logic here
+							//let fileName = `${new Date().toISOString().replace(/\./g, "").replace(/:/g, "")}-${file.name}`;
+							let fileName = "file"
+							let fileContent = file
+
+
+							//TODO: save the image somewhere...
+
+							return {
+								success: 1,
+								file: {
+								  url: 'https://via.placeholder.com/700x300.png',
+								  // any other image data you want to store, such as width, height, color, extension, etc
+								}
+							  }
+						},
+
+						/**
+						 * Send URL-string to the server. Backend should load image by this URL and return an uploaded image data
+						 * @param {string} url - pasted image URL
+						 * @return {Promise.<{success, file: {url}}>}
+						 */
+						uploadByUrl(url) {
+							// your ajax request for uploading
+							if (console) console.warn("URL uploads not supported yet...", url)
+						}
+					}
+				}
+			},
+			raw: Raw,
+			header: Header,
+			quote: Quote,
+			marker: Marker,
+			checklist: CheckList,
+			delimiter: Delimiter,
+			inlineCode: InlineCode,
+			simpleImage: SimpleImage
+		}
+
 
 		const editor = new EditorJS({
 			/**
@@ -56,64 +132,7 @@ function App() {
 			autofocus: true,
 			placeholder: "Enter your Rich Text here",
 			holder: 'editorjs',
-			tools: {
-				header: Header,
-				list: List,
-				inlineCode: {
-					class: InlineCode,
-					shortcut: 'CMD+SHIFT+M',
-				},
-				table: {
-					class: Table,
-				  },
-				image: {
-					class: ImageTool,
-					config: {
-						/**
-						 * Custom uploader
-						 */
-						uploader: {
-							/**
-							 * Upload file to the server and return an uploaded image data
-							 * @param {File} file - file selected from the device or pasted by drag-n-drop
-							 * @return {Promise.<{success, file: {url}}>}
-							 */
-							uploadByFile: (file) => {
-								console.log("UPLOAD FILE", file)
-								// your own uploading logic here
-								// return MyAjax.upload(file).then(() => {
-								// 	return {
-								// 		success: 1,
-								// 		file: {
-								// 			url: 'https://codex.so/upload/redactor_images/o_80beea670e49f04931ce9e3b2122ac70.jpg',
-								// 			// any other image data you want to store, such as width, height, color, extension, etc
-								// 		}
-								// 	};
-								// });
-							},
-
-							/**
-							 * Send URL-string to the server. Backend should load image by this URL and return an uploaded image data
-							 * @param {string} url - pasted image URL
-							 * @return {Promise.<{success, file: {url}}>}
-							 */
-							uploadByUrl: (url) => {
-								console.log("UPLOAD URL", url)
-								// your ajax request for uploading
-								// return MyAjax.upload(file).then(() => {
-								// 	return {
-								// 		success: 1,
-								// 		file: {
-								// 			url: 'https://codex.so/upload/redactor_images/o_e48549d1855c7fc1807308dd14990126.jpg',
-								// 			// any other image data you want to store, such as width, height, color, extension, etc
-								// 		}
-								// 	}
-								// })
-							}
-						}
-					}
-				}
-			},
+			tools,
 			onChange: () => {
 
 				editor.save().then(outputValue => {
