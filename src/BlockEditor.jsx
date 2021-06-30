@@ -154,14 +154,19 @@ const BlockEditor = () => {
 
 					editor.isReady.then(() => {
 						//wait for the editor to be ready...
-						const blocks = JSON.parse(e.data.message)
-						editor.render(blocks)
-						this.setTimeout(function () {
-							heightChanged(containerRef.current.offsetHeight)
-						}, 200)
+						if (e.data.message && e.data.message.length > 0) {
+							const blocks = JSON.parse(e.data.message)
+							editor.render(blocks)
+							this.setTimeout(function () {
+								heightChanged(containerRef.current.offsetHeight)
+							}, 200)
+						}
 
 					})
 				}
+			} else {
+				//show us the unhandled message...
+				console.log("UNHANDLED MESSAGE FROM PARENT: ", e.data)
 			}
 		}, false);
 
