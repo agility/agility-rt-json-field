@@ -8,26 +8,29 @@ import {
 } from "react-router-dom";
 import BlockEditor from "./BlockEditor";
 import CloudinaryMedia from "./CloudinaryMedia";
-import Gutenberg from "./GutenbergEditor";
+import Gutenberg from "./Gutenberg";
+
 
 function App() {
 
 	return (
-	<Router>
-		<div>
-			<Switch>
-				<Route path="/block-editor">
-					<BlockEditor />
-				</Route>
-				<Route path="/cloudinary">
-					<CloudinaryMedia />
-				</Route>
-				<Route path="/gutenberg">
-					<Gutenberg />
-				</Route>
-			</Switch>
-		</div>
-	</Router>
+	<BlockEditor />
+	// <Router>
+	// 	<div>
+	// 		<Switch>
+	// 			<Route path="/block-editor">
+	// 				<div>BLOCK</div>
+	// 				{/* <BlockEditor /> */}
+	// 			</Route>
+	// 			<Route path="/cloudinary">
+	// 				<CloudinaryMedia />
+	// 			</Route>
+	// 			<Route path="/gutenberg">
+	// 				<Gutenberg />
+	// 			</Route>
+	// 		</Switch>
+	// 	</div>
+	// </Router>
 	)
 }
 

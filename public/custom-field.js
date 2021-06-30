@@ -627,9 +627,13 @@ var RTJsonField = function() {
 
 		if ($pnl.size() == 0) {
 
+			var row = $(options.$elem).parents(".row")
+			$(".col-lg-8", row).addClass("col-lg-12").removeClass("col-lg-8")
+			$(".col-lg-4", row).addClass("hidden")
+			$(".tab-CONTENT-tab", row).css("padding", 0)
 
 			//var url = 'https://joelvarty.github.io/agility-rt-json-field/index.html';
-			var url = 'http://localhost:3000/block-editor';
+			var url = 'https://agility-g-editor.netlify.app';
 			var iframe = document.createElement('iframe');
 			iframe.className = "rt-field";
 			iframe.width = '100%';
